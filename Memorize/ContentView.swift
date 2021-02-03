@@ -11,33 +11,34 @@ var viewModel = EmojiMemoryGame()
 
 struct ContentView: View {
     var body: some View {
-        ForEach(0..<4) {_ in
-            gameShower()
-        }
-        
-    }
-}
-
-struct gameShower: View{
-    var body: some View{
-        HStack {
-            ForEach (viewModel.cards) { card in
-                cardView(card: card)
+        HStack{
+            ForEach(viewModel.cards) {card in
+                gameShower(card: card).onTapGesture(perform: {
+                    viewModel.choose(card: card)
+                })
             }.frame(width: 100, height: 100, alignment: .center)
         }
     }
 }
 
-struct cardView: View{
+struct gameShower: View{
     var card: MemoryGame<String>.Card
-    var body: some View {
+    var body: some View{
         ZStack {
-                RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3.0)
+            if card.isFaceUp {
+                RoundedRectangle(cornerRadius:10.0).stroke(lineWidth:3.0)
+                    .fill(Color.white)
                     .foregroundColor(.orange)
-                Text(card.content)
-        }.padding()
+            Text(card.content)
+            }
+        else {
+            RoundedRectangle(cornerRadius: 10.0).fill(Color.orange)
         }
+        }.padding()
+
     }
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

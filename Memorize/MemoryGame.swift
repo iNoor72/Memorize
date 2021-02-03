@@ -14,6 +14,7 @@ struct MemoryGame<Element> {
         for index in 0..<numberOfPairs {
             cards.append(Card(content: cardElements(numberOfPairs)[index], id: index*2))
             cards.append(Card(content: cardElements(numberOfPairs)[index], id: index*2 + 1))
+            
         }
     }
     
